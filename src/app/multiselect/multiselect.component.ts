@@ -23,7 +23,7 @@ export class MultiselectComponent implements OnInit {
     this.textInBox = "";
     this.searchItems = this.unSelectedItems;
     this.getFocus();
-    this.searchBox.addEventListener('keypress', e => {
+    this.searchBox.addEventListener('keydown', e => {
       var key = e.which || e.keyCode;
       if (key === 13) {
         if(this.searchItems.length > 0 && this.searchItems[0] !== 'Not Found'){
@@ -31,6 +31,12 @@ export class MultiselectComponent implements OnInit {
           this.textInBox = "";
         }
         e.preventDefault();
+      }
+      if (key === 8) {
+        if(this.textInBox.length === 0 && this.selectedItems.length > 0){
+          this.removeSelected(this.selectedItems[this.selectedItems.length - 1]);
+          this.textInBox = "";
+        }
       }
     });
   }
